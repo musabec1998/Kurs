@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EF_CodeFirst_Kursverwaltung.Models.Kurs>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alle Kurse</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Starttermin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dauer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Starttermin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dauer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<hr />
+<div>
+    @*@using (Html.BeginForm("Upload", "Kurs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" name="csvupluad" />
+        <input type="submit" value="Hochladen" />
+    }*@
+
+    <form asp-action="Upload" asp-controller="Kurs" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="file" name="csvupluad" required class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Hochladen" class="btn btn-primary" />
+        </div>
+    </form>
+
+</div>
+<hr />
+<div>
+    @*@Html.ActionLink("Download als CSV-Datei", "Download")*@
+    <a asp-action="Download" class="btn btn-secondary">Download als CSV-Datei</a>
+</div>
